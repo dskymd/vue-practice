@@ -1,11 +1,17 @@
 <script setup lang="ts">
-
-defineProps<{
+import { ref } from 'vue'
+const props = defineProps<{
   messsage?: string
 }>()
 
-await new Promise((res) => {
-  setTimeout(res, 1000);
+const displayMessage = ref(props.messsage)
+
+await new Promise((resolve, reject) => {
+  setTimeout(reject, 1000);
+}).catch((error) => {
+  console.log('catched error')
+
+  displayMessage.value = 'error occurd 😫'
 })
 
 </script>
@@ -14,7 +20,7 @@ await new Promise((res) => {
   <div class="suepencedChild">
     <h1>Suspenced Child</h1>
     <p>
-      messsage : {{ messsage }}
+      messsage : {{ displayMessage }}
     </p>
   </div>
 </template>

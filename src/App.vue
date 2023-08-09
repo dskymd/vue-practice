@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { onErrorCaptured } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+
+onErrorCaptured(() => {
+  console.log('somethings wrong')
+})
+
+
 </script>
 
 <template>

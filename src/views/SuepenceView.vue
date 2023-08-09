@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { onErrorCaptured } from 'vue'
 import SuspencedChild from "../components/SuepencedChild.vue";
 
 const message = 'Hi!😇'
+
+onErrorCaptured(() => {
+  console.log('error')
+})
+
 </script>
 
 <template>
