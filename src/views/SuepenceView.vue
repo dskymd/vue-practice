@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import SuspencedChild from "../components/SuepencedChild.vue";
+
+const message = 'Hi!😇'
 </script>
 
 <template>
@@ -10,7 +12,7 @@ import SuspencedChild from "../components/SuepencedChild.vue";
 
     <div class="body">
       <Suspense>
-        <SuspencedChild />
+        <SuspencedChild :messsage="message" />
         <template #fallback>
           Loading...
         </template>
