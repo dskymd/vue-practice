@@ -3,6 +3,20 @@ import { onErrorCaptured } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 
+import { useCounterStore } from '@/stores/counter'
+
+
+const counter = useCounterStore()
+
+// counter.count++
+counter.increment()
+
+
+
+const count = () => {
+  counter.increment()
+}
+
 
 onErrorCaptured(() => {
   console.log('somethings wrong')
@@ -23,6 +37,11 @@ onErrorCaptured(() => {
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/suspence">Suspence</RouterLink>
       </nav>
+
+      <div>Current Count: {{ counter.count }}</div> /
+      <div>doubleCount: {{ counter.doubleCount }}</div> /
+      <div>doubleCountPlusOne: {{ counter.doubleCountPlusOne }}</div> /
+      <button @click="count">Count</button>
 
     </div>
   </header>

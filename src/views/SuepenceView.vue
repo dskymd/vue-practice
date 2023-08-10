@@ -2,6 +2,12 @@
 import { onErrorCaptured } from 'vue'
 import SuspencedChild from "../components/SuepencedChild.vue";
 
+
+import { useCounterStore } from '@/stores/counter'
+
+const counter = useCounterStore()
+
+
 const message = 'Hi!😇'
 
 onErrorCaptured(() => {
@@ -17,6 +23,11 @@ onErrorCaptured(() => {
     </header>
 
     <div class="body">
+
+      <p>
+        Double Counter : {{ counter.doubleCount }}
+      </p>
+
       <Suspense>
         <SuspencedChild :messsage="message" />
         <template #fallback>
@@ -45,6 +56,10 @@ onErrorCaptured(() => {
   .body {
     width: 100%;
     background: #eee;
+  }
+
+  p {
+    color: #F90;
   }
 }
 </style>

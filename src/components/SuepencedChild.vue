@@ -7,10 +7,9 @@ const props = defineProps<{
 const displayMessage = ref(props.messsage)
 
 await new Promise((resolve, reject) => {
-  setTimeout(reject, 1000);
+  setTimeout(resolve, 1000);
 }).catch((error) => {
   console.log('catched error')
-
   displayMessage.value = 'error occurd 😫'
 })
 
