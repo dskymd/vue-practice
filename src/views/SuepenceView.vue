@@ -46,20 +46,20 @@ onErrorCaptured(() => {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-  }
 
-  .header {
-    width: 100%;
-    background: #999;
-  }
+    .header {
+      width: 100%;
+      background: #999;
+    }
 
-  .body {
-    width: 100%;
-    background: #eee;
-  }
+    .body {
+      width: 100%;
+      background: #eee;
+    }
 
-  p {
-    color: #F90;
+    p {
+      color: #F90;
+    }
   }
 }
 </style>

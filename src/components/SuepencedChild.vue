@@ -8,6 +8,7 @@ const displayMessage = ref(props.messsage)
 
 await new Promise((resolve, reject) => {
   setTimeout(resolve, 1000);
+  // await sleep(500)
 }).catch((error) => {
   console.log('catched error')
   displayMessage.value = 'error occurd 😫'
