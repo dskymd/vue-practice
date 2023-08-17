@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue';
 
 const canvas = ref<HTMLCanvasElement | undefined>()
 
+const radius = ref(40) // 半径
+
 onMounted(() => {
 
   const ctx = canvas.value?.getContext("2d");
@@ -24,7 +26,7 @@ onMounted(() => {
   ctx.fillStyle = "#f00";
   ctx.beginPath()
   // ctx.clearRect(0, 0, 200, 200)
-  ctx.arc(400, 400, 100, 0, Math.PI * 2)
+  ctx.arc(400, 400, 100, radius.value, Math.PI * 2)
   ctx.fill()
 
 
