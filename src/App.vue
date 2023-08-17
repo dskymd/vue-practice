@@ -7,16 +7,12 @@ import { useCounterStore } from '@/stores/counter'
 
 
 const counter = useCounterStore()
-
-// counter.count++
-counter.increment()
-
+// counter.increment() // counter.count++
 
 
 const count = () => {
   counter.increment()
 }
-
 
 onErrorCaptured(() => {
   console.log('somethings wrong')
@@ -27,15 +23,15 @@ onErrorCaptured(() => {
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+      <h1>Vue Practice</h1>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/suspence">Suspence</RouterLink>
+        <RouterLink to="/promise">Promise</RouterLink>
+        <RouterLink to="/canvas">Canvas</RouterLink>
       </nav>
 
       <div>Current Count: {{ counter.count }}</div> /
