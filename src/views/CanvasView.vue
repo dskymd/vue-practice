@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // import { onErrorCaptured } from 'vue'
+import CanvasPlot from "../components/CanvasPlot.vue";
+import CanvasClock from "../components/CanvasClock.vue";
 import MyCanvas from "../components/MyCanvas.vue";
 
 
@@ -23,13 +25,15 @@ import MyCanvas from "../components/MyCanvas.vue";
     </header>
 
     <div class="body">
-      <MyCanvas id="MyCanvas"></MyCanvas>
+      <CanvasPlot></CanvasPlot>
+      <CanvasClock></CanvasClock>
+      <!-- <MyCanvas id="MyCanvas"></MyCanvas> -->
     </div>
 
   </div>
 </template>
 
-<style>
+<style scoped>
 @media (min-width: 1024px) {
   .canvas {
     min-height: 100vh;
@@ -39,11 +43,12 @@ import MyCanvas from "../components/MyCanvas.vue";
 
     .header {
       width: 100%;
-      background: #999;
+      padding: 2em;
     }
 
     .body {
-      width: 100%;
+      width: 1000px;
+      margin: auto;
       /* background: #eee; */
       /* border: 1px solid #eee; */
     }
