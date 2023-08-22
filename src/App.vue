@@ -23,21 +23,26 @@ onErrorCaptured(() => {
 
 <template>
   <header>
-    
+
     <div class="wrapper">
       <h1>Vue Practice</h1>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/suspence">Suspence</RouterLink>
-        <RouterLink to="/promise">Promise</RouterLink>
-        <RouterLink to="/canvas">Canvas</RouterLink>
-      </nav>
+      <div class="flex">
 
-      <div>Current Count: {{ counter.count }}</div> /
-      <div>doubleCount: {{ counter.doubleCount }}</div> /
-      <div>doubleCountPlusOne: {{ counter.doubleCountPlusOne }}</div> /
-      <button @click="count">Count</button>
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/suspence">Suspence</RouterLink>
+          <RouterLink to="/promise">Promise</RouterLink>
+          <RouterLink to="/canvas">Canvas</RouterLink>
+        </nav>
+
+        <aside class="aside">
+          <span>Current Count: {{ counter.count }}</span> /
+          <span>doubleCount: {{ counter.doubleCount }}</span> /
+          <span>doubleCountPlusOne: {{ counter.doubleCountPlusOne }}</span> /
+          <button @click="count">Count</button>
+        </aside>
+      </div>
 
     </div>
   </header>
@@ -49,7 +54,24 @@ onErrorCaptured(() => {
 header {
   line-height: 1.5;
   max-height: 100vh;
+  border-bottom: 1px solid #999;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
+
+
+.flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+
+.aside {
+  flex-grow: 1;
+  /* width: 600px; */
+}
+
 
 nav {
   width: 100%;
