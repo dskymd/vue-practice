@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-const canvas = ref<HTMLCanvasElement | undefined>()
+const canvasPlot = ref<HTMLCanvasElement | undefined>()
 
-const radius = ref(100) // 半径
+// const radius = ref(100) // 半径
 const stg = ref(1000)
 const center = ref(stg.value / 2)
 const strokeColor = ref('#ccc')
 
 onMounted(() => {
 
-  const ctx = canvas.value?.getContext("2d")!;
+  const ctx = canvasPlot.value?.getContext("2d")!;
   // if (!ctx) {
   //   return
   // }
@@ -58,7 +58,7 @@ onMounted(() => {
 
 
 <template>
-  <canvas :width="stg" :height="stg" class="canvasPlot" id="canvasPlot" ref="canvas"></canvas>
+  <canvas :width="stg" :height="stg" class="canvasPlot" id="canvasPlot" ref="canvasPlot"></canvas>
 </template>
 
 
