@@ -5,7 +5,32 @@ const canvasClock = ref<HTMLCanvasElement | undefined>()
 
 const stage = 1000
 const stageCenter = stage / 2
-const radius = 500 // 半径
+const radius = 360 // 半径
+const angleCircle = 360
+const angleHalf = angleCircle / 2
+
+
+// 放射線の数
+const indexNum = 360
+
+type Point = {
+  x: number
+  y: number
+}
+
+
+const calRadialPoint = (ang: number): Point => {
+  const x = Math.sin(ang * (Math.PI / angleHalf))
+  const y = Math.cos(ang * (Math.PI / angleHalf))
+  return { x, y }
+}
+
+
+const isLong = (n: number) => {
+  const x = indexNum / 12
+  return n % x === 0
+}
+
 
 
 onMounted(() => {
@@ -27,8 +52,8 @@ onMounted(() => {
 
   // 外円
   // ctx.fillStyle = "#f00";
-  ctx.strokeStyle = "#00f";
-  ctx.lineWidth = 4
+  ctx.strokeStyle = "#ccc";
+  ctx.lineWidth = 8
   ctx.beginPath()
   ctx.arc(stageCenter, stageCenter, radius, Math.PI * 0, Math.PI * 2.5)
   // ctx.arc(radius.value, radius.value, radius.value, 0, Math.PI * 2)
@@ -37,36 +62,70 @@ onMounted(() => {
 
 
   // 内円
-  ctx.strokeStyle = "#f90";
-  ctx.lineWidth = 16
+  ctx.strokeStyle = "#bbb";
+  ctx.lineWidth = 32
   ctx.beginPath()
-  ctx.arc(stageCenter, stageCenter, radius * 0.75, Math.PI * 0, Math.PI * 2)
+  ctx.arc(stageCenter, stageCenter, radius * 0.90, Math.PI * 0, Math.PI * 2)
+  ctx.stroke()
+
+
+  // 内円2
+  ctx.strokeStyle = "#bbb";
+  ctx.lineWidth = 8
+  ctx.beginPath()
+  ctx.arc(stageCenter, stageCenter, 8, Math.PI * 0, Math.PI * 2)
   ctx.stroke()
 
 
 
 
-  // 内円
-  const num = 36
-  for (let i = 0; i < num; i++) {
-    const ang = 360 / num * i //角度を3度づつ増やしていく
-    const ang2 = 360 / num * i //角度を3度づつ増やしていく
-    const _tmp = Math.sin(ang * (Math.PI / 180)) * (radius * 0.75 - 30)
-    const _tmp2 = Math.cos(ang2 * (Math.PI / 180)) * (radius * 0.75 - 30)
+  // 放射線
+  for (let i = 0; i < indexNum; i++) {
+
+    const ang = angleCircle / indexNum * i // 角度を少し（=360/num）度づつ増やしていく
+    const offset1 = 30
+    const offset2 = 60
+    const offsetBasis = radius * 0.90
+
+    const p = calRadialPoint(ang)
+    const px1 = p.x * (offsetBasis - offset1)
+    const py1 = p.y * (offsetBasis - offset1)
+
+    const px2 = p.x * (offsetBasis - (isLong(i) ? offset2 * 1.1 : offset2))
+    const py2 = p.y * (offsetBasis - (isLong(i) ? offset2 * 1.1 : offset2))
+
+    // const px = stageCenter + px1
+    // const py = stageCenter + py1
+    // ctx.fillStyle = "#f90";
+    // ctx.lineWidth = 5
+    // ctx.beginPath()
+    // ctx.arc(p.x, p.y, 2, Math.PI * 0, Math.PI * 2)
+    // ctx.fill()
 
 
-    const px = stageCenter + _tmp
-    const py = stageCenter + _tmp2
-    ctx.fillStyle = "#000";
-    ctx.lineWidth = 1
-    ctx.beginPath()
-    ctx.arc(px, py, 2, Math.PI * 0, Math.PI * 2)
-    ctx.fill()
-    console.log(ang, px, py)
+    // const px2 = stageCenter + px2
+    // const py2 = stageCenter + py2
+    // ctx.fillStyle = "#999";
+    // ctx.lineWidth = 5
+    // ctx.beginPath()
+    // ctx.arc(px2, py2, 1, Math.PI * 0, Math.PI * 2)
+    // ctx.fill()
+
+    ctx.beginPath();
+    ctx.strokeStyle = isLong(i) ? "#333" : "#999";
+    ctx.lineWidth = 1; // isLong(i) ? 2 : 1
+    ctx.moveTo(stageCenter + px1, stageCenter + py1);
+    ctx.lineTo(stageCenter + px2, stageCenter + py2);
+    ctx.stroke();
+
+
+
+    ctx.font = '8px serif';
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    if (isLong(i)) ctx.fillText(i.toString(10), stageCenter + px2 - (p.x * 10), stageCenter + py2 - (p.y * 10));
   }
 
-  // ctx.font = '48px serif';
-  // ctx.fillText('Hello world', 0, 48);
 
 })
 </script>
