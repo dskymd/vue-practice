@@ -6,8 +6,8 @@ const canvasClock = ref<HTMLCanvasElement | undefined>()
 const stage = 1000 * 2
 const stageCenter = stage / 2
 const radius = 360 * 2 // 半径
-const angleCircle = 360
-const angleHalf = angleCircle / 2
+const angle360 = 360
+const angle180 = angle360 / 2
 
 
 // 放射線の数
@@ -20,8 +20,8 @@ type Point = {
 
 
 const calRadialPoint = (ang: number): Point => {
-  const x = Math.sin(ang * (Math.PI / angleHalf))
-  const y = Math.cos(ang * (Math.PI / angleHalf))
+  const x = Math.sin(ang * (Math.PI / angle180))
+  const y = Math.cos(ang * (Math.PI / angle180))
   return { x, y }
 }
 
@@ -31,48 +31,9 @@ const isLong = (n: number) => {
   return n % x === 0
 }
 
-
-const long = radius * 0.5
-
-
 onMounted(() => {
 
   const ctx = canvasClock.value?.getContext("2d")!;
-
-
-
-
-  // // 外円
-  // ctx.strokeStyle = "#ccc";
-  // ctx.lineWidth = 8 * 2
-  // ctx.beginPath()
-  // ctx.arc(stageCenter, stageCenter, radius, Math.PI * 0, Math.PI * 2.5)
-  // ctx.stroke()
-
-
-  // // 内円
-  // ctx.strokeStyle = "#bbb";
-  // ctx.lineWidth = 32 * 2
-  // ctx.beginPath()
-  // ctx.arc(stageCenter, stageCenter, radius * 0.90, Math.PI * 0, Math.PI * 2)
-  // ctx.stroke()
-
-
-
-  // 放射線
-  // for (let i = 0; i < indexNum; i++) {
-
-  // ctx.beginPath();
-  // ctx.strokeStyle = '#bbb'
-  // ctx.lineWidth = 8
-  // ctx.moveTo(stageCenter - 40, stageCenter - 40);
-  // ctx.lineTo(stageCenter + long, stageCenter + long);
-  // ctx.stroke();
-
-  // // 短針
-  // ctx.moveTo(stageCenter - 40, stageCenter - 40);
-  // ctx.lineTo(stageCenter + long, stageCenter + long);
-  // ctx.stroke();
 
   ctx.strokeStyle = '#bbb'
   ctx.lineWidth = 24
@@ -85,9 +46,8 @@ onMounted(() => {
   const dt = new Date()
   const angHour = 30 * (-1 * dt.getHours() % 12) - 180
   const angHourMinute = 30 * (dt.getHours() / 60)
-  const angMinute = 360 - 360 * (dt.getMinutes() / 60) - 180
-  const angSeconds = 360 - 360 * (dt.getSeconds() / 60) - 180
-  console.log(angHour, angHourMinute, angMinute)
+  const angMinute = 180 - 6 * dt.getMinutes()
+  const angSeconds = 180 - 6 * dt.getSeconds()
 
   // 短針
   const p = calRadialPoint(angHour - angHourMinute)
