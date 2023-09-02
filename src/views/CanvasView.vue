@@ -2,6 +2,7 @@
 // import { onErrorCaptured } from 'vue'
 import CanvasPlot from "../components/CanvasPlot.vue";
 import CanvasClock from "../components/CanvasClock.vue";
+import CanvasClockBase from "../components/CanvasClockBase.vue";
 import MyCanvas from "../components/MyCanvas.vue";
 
 
@@ -19,15 +20,20 @@ import MyCanvas from "../components/MyCanvas.vue";
 </script>
 
 <template>
-  <div class="canvas">
+  <div class="canvasView">
     <header class="header">
       <h1>Canvas</h1>
     </header>
 
     <div class="body">
+
       <CanvasPlot></CanvasPlot>
-      <CanvasClock></CanvasClock>
-      <!-- <MyCanvas id="MyCanvas"></MyCanvas> -->
+
+      <div class="clockWrapper">
+        <CanvasClock></CanvasClock>
+        <CanvasClockBase></CanvasClockBase>
+      </div>
+
     </div>
 
   </div>
@@ -35,8 +41,8 @@ import MyCanvas from "../components/MyCanvas.vue";
 
 <style scoped>
 @media (min-width: 1024px) {
-  .canvas {
-    min-height: 100vh;
+  .canvasView {
+    /* min-height: 100vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -56,6 +62,16 @@ import MyCanvas from "../components/MyCanvas.vue";
     p {
       color: #F90;
     }
+  }
+
+  .clockWrapper {
+    position: relative;
+  }
+
+  .clockWrapper canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }
 </style>
