@@ -69,12 +69,12 @@ onMounted(() => {
   ctx.stroke()
 
 
-  // 内円2
-  ctx.strokeStyle = "#bbb";
-  ctx.lineWidth = 8 * 2
-  ctx.beginPath()
-  ctx.arc(stageCenter, stageCenter, 8 * 2, Math.PI * 0, Math.PI * 2)
-  ctx.stroke()
+  // // 内円2
+  // ctx.strokeStyle = "#bbb";
+  // ctx.lineWidth = 8 * 2
+  // ctx.beginPath()
+  // ctx.arc(stageCenter, stageCenter, 8 * 2, Math.PI * 0, Math.PI * 2)
+  // ctx.stroke()
 
 
   // 放射線
@@ -134,7 +134,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.canvasClock {
-  background: #fff;
-}
+/* .canvasClock { */
+/* background: #fff; */
+/* } */
 </style>

@@ -27,13 +27,15 @@ import MyCanvas from "../components/MyCanvas.vue";
 
     <div class="body">
 
-      <CanvasPlot></CanvasPlot>
 
       <div class="clockWrapper">
-        <CanvasClock></CanvasClock>
         <CanvasClockBase></CanvasClockBase>
-      </div>
+        <CanvasClock></CanvasClock>
 
+      </div>
+      <div class="plot">
+        <CanvasPlot></CanvasPlot>
+      </div>
     </div>
 
   </div>
@@ -66,6 +68,7 @@ import MyCanvas from "../components/MyCanvas.vue";
 
   .clockWrapper {
     position: relative;
+    height: 1000px;
   }
 
   .clockWrapper canvas {
@@ -73,5 +76,9 @@ import MyCanvas from "../components/MyCanvas.vue";
     left: 0;
     top: 0;
   }
+
+  /* .plot { 
+    
+  } */
 }
 </style>
