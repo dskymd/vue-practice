@@ -9,6 +9,7 @@ const radius = 360 * 2 // 半径
 const angle360 = 360
 const angle180 = angle360 / 2
 
+const ctx = ref()
 
 // 放射線の数
 const indexNum = 360
@@ -33,16 +34,27 @@ const isLong = (n: number) => {
 
 onMounted(() => {
 
-  const ctx = canvasClock.value?.getContext("2d")!;
+  ctx.value = canvasClock.value?.getContext("2d")!;
 
-  ctx.strokeStyle = '#bbb'
-  ctx.lineWidth = 24
+  draw()
+
+})
+
+const _draw = () => {
+
+
+
+  ctx.value.clearRect(0, 0, canvasClock.value?.width, canvasClock.value?.height);
+
+  ctx.value.strokeStyle = '#bbb'
+  ctx.value.lineWidth = 24
 
   const offset1 = 0 * 2
   const offset2 = 100 * 2
   const offset3 = 0 * 2
   const offsetBasis = radius * 0.8
 
+  // new Date
   const dt = new Date()
   const angHour = 30 * (-1 * dt.getHours() % 12) - 180
   const angHourMinute = 30 * (dt.getHours() / 60)
@@ -56,10 +68,10 @@ onMounted(() => {
   const px2 = p.x * (offsetBasis - offset2)
   const py2 = p.y * (offsetBasis - offset2)
 
-  ctx.beginPath();
-  ctx.moveTo(stageCenter + px1, stageCenter + py1);
-  ctx.lineTo(stageCenter + px2, stageCenter + py2);
-  ctx.stroke();
+  ctx.value.beginPath();
+  ctx.value.moveTo(stageCenter + px1, stageCenter + py1);
+  ctx.value.lineTo(stageCenter + px2, stageCenter + py2);
+  ctx.value.stroke();
 
 
   // 長針
@@ -69,15 +81,15 @@ onMounted(() => {
   const p2x2 = p2.x * (offsetBasis - offset3)
   const p2y2 = p2.y * (offsetBasis - offset3)
 
-  ctx.beginPath();
-  ctx.moveTo(stageCenter + p2x1, stageCenter + p2y1);
-  ctx.lineTo(stageCenter + p2x2, stageCenter + p2y2);
-  ctx.stroke();
+  ctx.value.beginPath();
+  ctx.value.moveTo(stageCenter + p2x1, stageCenter + p2y1);
+  ctx.value.lineTo(stageCenter + p2x2, stageCenter + p2y2);
+  ctx.value.stroke();
 
 
   // 秒針
-  ctx.strokeStyle = '#D00'
-  ctx.lineWidth = 8
+  ctx.value.strokeStyle = '#D00'
+  ctx.value.lineWidth = 8
 
   const p3 = calRadialPoint(angSeconds)
   const p3x1 = p3.x * (0 - 100)
@@ -85,29 +97,44 @@ onMounted(() => {
   const p3x2 = p3.x * (offsetBasis - offset3)
   const p3y2 = p3.y * (offsetBasis - offset3)
 
-  ctx.beginPath();
-  ctx.moveTo(stageCenter + p3x1, stageCenter + p3y1);
-  ctx.lineTo(stageCenter + p3x2, stageCenter + p3y2);
-  ctx.stroke();
+  ctx.value.beginPath();
+  ctx.value.moveTo(stageCenter + p3x1, stageCenter + p3y1);
+  ctx.value.lineTo(stageCenter + p3x2, stageCenter + p3y2);
+  ctx.value.stroke();
 
 
-  //   ctx.font = '16px san-serif';
-  //   ctx.textAlign = 'center'
-  //   ctx.textBaseline = 'middle'
-  //   if (isLong(i)) ctx.fillText(i.toString(10), stageCenter + px2 - (p.x * 20), stageCenter + py2 - (p.y * 20));
+  //   ctx.value.font = '16px san-serif';
+  //   ctx.value.textAlign = 'center'
+  //   ctx.value.textBaseline = 'middle'
+  //   if (isLong(i)) ctx.value.fillText(i.toString(10), stageCenter + px2 - (p.x * 20), stageCenter + py2 - (p.y * 20));
   // }
 
 
   // 内円
-  // ctx.strokeStyle = "#bbb";
-  ctx.fillStyle = "#fff";
-  ctx.lineWidth = 8 * 3
-  ctx.beginPath()
-  ctx.arc(stageCenter, stageCenter, 8 * 2, Math.PI * 0, Math.PI * 2)
-  ctx.stroke()
-  ctx.fill()
+  // ctx.value.strokeStyle = "#bbb";
+  ctx.value.fillStyle = "#fff";
+  ctx.value.lineWidth = 8 * 3
+  ctx.value.beginPath()
+  ctx.value.arc(stageCenter, stageCenter, 8 * 2, Math.PI * 0, Math.PI * 2)
+  ctx.value.stroke()
+  ctx.value.fill()
+  // console.log('draw')
 
-})
+}
+
+
+
+const duration = 1000 // ms
+let lastDrawedAt = Date.now()
+const draw = () => {
+
+  if (Date.now() - lastDrawedAt > duration) {
+    _draw()
+    lastDrawedAt = Date.now()
+  }
+  requestAnimationFrame(draw)
+}
+
 </script>
 
 
